@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <fstream>
 #include <math.h>
 #include <set>
