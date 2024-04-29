@@ -8,10 +8,6 @@
 
 using namespace std;
 
-const int k=2; // nombre de sommets
-int adjaM[k][k];
-int s;
-
 struct Point {
     double x, y;
 };
@@ -134,55 +130,34 @@ int main() {
     vector<set<int>> adj(n);
     genereDisque(n, d, l, h, adj);
 
-    /*int p = 50;
-    generegraphe(p);*/
+    int n = 9;
+    vector<set<int>> adj(n);
 
-    vector<set<int>> adj(k);
-    /*for (int i = 0; i < k; ++i) {
-        for (int j = 0; j < k; ++j) {
-            if (adjaM[i][j] == 1) {
-                adj[i].insert(j);
-            }
-        }
-    }*/
-
-    //int n = 5;
-    
-
-    /*adj[0].insert(1); adj[1].insert(0); //arête entre les sommets 0 et 1
-    adj[0].insert(4); adj[4].insert(0);
-    adj[1].insert(4); adj[4].insert(1);
-    adj[1].insert(2); adj[2].insert(1);
+    //Exemple du sujet
+    adj[0].insert(1); adj[0].insert(2); adj[0].insert(3); adj[0].insert(4); adj[0].insert(5);// A-C, A-D
+    adj[1].insert(0); adj[2].insert(0); adj[3].insert(0); adj[4].insert(0); adj[5].insert(0);
+    adj[1].insert(5); adj[5].insert(1);
+    adj[2].insert(4); adj[4].insert(2);
     adj[2].insert(3); adj[3].insert(2);
     adj[3].insert(5); adj[5].insert(3);
-    adj[4].insert(3); adj[3].insert(4);*/
+    adj[4].insert(5); adj[5].insert(4);
+    adj[4].insert(6); adj[6].insert(4);
+    adj[5].insert(6); adj[6].insert(5);
+    adj[5].insert(7); adj[7].insert(5);
+    adj[5].insert(8); adj[8].insert(5);
+    adj[6].insert(7); adj[7].insert(6);
+    adj[7].insert(8); adj[8].insert(7);
 
-    //Exemple du cours
-    /*adj[0].insert(1); adj[1].insert(0); //arête entre les sommets 0 et 1
-    adj[0].insert(2); adj[2].insert(0);
-    adj[0].insert(3); adj[3].insert(0);
-    adj[0].insert(4); adj[4].insert(0);
-    adj[0].insert(5); adj[5].insert(0);
-    adj[1].insert(6); adj[6].insert(1);
-    adj[2].insert(3); adj[3].insert(2);
-    adj[2].insert(4); adj[4].insert(2);
-    adj[3].insert(5); adj[5].insert(3);*/
-    adj[0].insert(1); adj[1].insert(0);
-    adj[0].insert(2); adj[2].insert(0);
-    adj[1].insert(2); adj[2].insert(1);
-    adj[1].insert(3); adj[3].insert(1);
-    adj[1].insert(4); adj[4].insert(1);
-    adj[2].insert(3); adj[3].insert(2);
-    adj[3].insert(4); adj[4].insert(3);
-
-
+    /*
     set<int> K, P, X;
     for (int i = 0; i < n; i++) {
         P.insert(i);
     }
 
     vector<set<int>> cliques;
-  
+
+    //BronKerbosch(K, P, X, adj, cliques);
+    int s=1;
     BronKerbosch_kQCM(K, P, X, adj, cliques, s);
 
     size_t maxT = 0;
@@ -198,5 +173,43 @@ int main() {
 
     ecrire_cliquesMax(cliques, "cliques_maximales.txt");
 
+    vector<set<int>> adj(9);
+
+    adj[0].insert(1); adj[0].insert(2); adj[0].insert(3); adj[0].insert(4); adj[0].insert(5);// A-C, A-D
+    adj[1].insert(0); adj[2].insert(0); adj[3].insert(0); adj[4].insert(0); adj[5].insert(0);
+    adj[1].insert(5); adj[5].insert(1);
+    adj[2].insert(4); adj[4].insert(2);
+    adj[2].insert(3); adj[3].insert(2);
+    adj[3].insert(5); adj[5].insert(3);
+    adj[4].insert(5); adj[5].insert(4);
+    adj[4].insert(6); adj[6].insert(4);
+    adj[5].insert(6); adj[6].insert(5);
+    adj[5].insert(7); adj[7].insert(5);
+    adj[5].insert(8); adj[8].insert(5);
+    adj[6].insert(7); adj[7].insert(6);
+    adj[7].insert(8); adj[8].insert(7);
+*/
+    for (int k = 0; k <= 2; ++k) {
+        set<int> R, P, X;
+        vector<set<int>> cliques;
+
+        // Initialisez l'ensemble P avec tous les sommets du graphe
+        for (int i = 0; i < adj.size(); ++i) {
+            P.insert(i);
+        }
+
+        BronKerbosch_kQCM(R, P, X, adj, cliques, k);
+
+        // Trouver la taille de la plus grande clique
+        size_t maxSize = 0;
+        for (const auto& clique : cliques) {
+            if (clique.size() > maxSize) {
+                maxSize = clique.size();
+            }
+        }
+
+        // Afficher la taille de la plus grande k-quasi-clique
+        cout << "La taille de la " << k << "-quasi-clique maximum est : " << maxSize << endl;
+    }
     return 0;
 }
