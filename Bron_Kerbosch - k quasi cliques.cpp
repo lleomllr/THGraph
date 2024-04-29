@@ -81,6 +81,37 @@ void BronKerbosch_kQCM(set<int>& R, set<int>& P, set<int>& X, const vector<set<i
         P.erase(v);
         X.insert(v);
     }
+    /*if (P.empty() && X.empty() && trouver_kQuasiCliques(R, adj, k)) {
+        cliques.push_back(R);
+        return;
+    }
+
+    int pivot = choisirPivot(P, X, adj);
+    set<int> P_minus_pivot_neighbours = P;
+
+    if (pivot != -1) {
+        for (int v : adj[pivot]) {
+            P_minus_pivot_neighbours.erase(v);
+        }
+    }
+
+    for (int v : P_minus_pivot_neighbours) {
+        set<int> Rn = R, Pn, Xn;
+        Rn.insert(v);
+
+        set_intersection(P.begin(), P.end(),
+                         adj[v].begin(), adj[v].end(),
+                         inserter(Pn, Pn.begin()));
+
+        set_intersection(X.begin(), X.end(),
+                         adj[v].begin(), adj[v].end(),
+                         inserter(Xn, Xn.begin()));
+
+        BronKerbosch_kQCM(Rn, Pn, Xn, adj, cliques, k);
+
+        P.erase(v);
+        X.insert(v);
+    }*/
 }
 
 //-----------------------------------Test Graphes de disque G(d,h,l,n)------------------------------//
@@ -122,13 +153,13 @@ void genereDisque(int n, double d, double l, double h, vector<set<int>>& adj)
 int main() {
     //srand(time(NULL));
 
-    const int n = 100;
+    /*const int n = 100;
     const double d = 5.0;
     const double l = 200.0;
-    const double h = 200.0;*/
+    const double h = 200.0;
 
     vector<set<int>> adj(n);
-    genereDisque(n, d, l, h, adj);
+    genereDisque(n, d, l, h, adj);*/
 
     int n = 9;
     vector<set<int>> adj(n);
