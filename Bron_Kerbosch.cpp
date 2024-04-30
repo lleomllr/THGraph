@@ -90,7 +90,7 @@ void ecrire_cliquesMax(const vector<set<int>>& cliques, const string& fich)
 
 //--------------------------AJOUTS POUR QUESTION 2-------------------------------//
 
-const int k=2; // nombre de sommets
+const int k=65; // nombre de sommets
 int adjaM[k][k];
 int s;
 
